@@ -1,5 +1,9 @@
 import type { MenuProps } from 'antd/lib/menu'
-import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons'
+import {
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined
+} from '@ant-design/icons'
 import React from 'react'
 
 export type MenuItem = Required<MenuProps>['items'][number]

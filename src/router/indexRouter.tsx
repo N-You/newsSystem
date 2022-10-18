@@ -15,11 +15,14 @@ export default function IndexRouter() {
       <Routes>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/" element={<NewsSandBox />}>
-          <Route index element={<Home />}></Route>
+          <Route index element={<Redirect to="home" />}></Route>
           <Route path="home" element={<Home />}></Route>
           <Route path="user-manage/list" element={<UserList />}></Route>
           <Route path="right-manage">
-            <Route index element={<Navigate to="role/list" />}></Route>
+            <Route
+              index
+              element={<Navigate to="role/list" replace={true} />}
+            ></Route>
             <Route path="role/list" element={<RoleList />}></Route>
             <Route path="right/list" element={<RightList />}></Route>
           </Route>
