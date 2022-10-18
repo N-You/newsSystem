@@ -1,47 +1,31 @@
-import React from 'react'
-import { Layout, Menu } from 'antd'
-import { AppstoreOutlined, UserOutlined } from '@ant-design/icons'
-import type { MenuProps } from 'antd'
+import React, { useEffect, useState } from 'react'
+import { Layout, Menu, MenuProps } from 'antd'
 import './index.sass'
 import { icons } from 'antd/lib/image/PreviewGroup'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { getList, MenuItem } from '@/utils/getMenu'
 
 const { Sider } = Layout
 
-type MenuItem = Required<MenuProps>['items'][number]
-
-const items: MenuProps['items'] = [
-  getItem('首页', '/home', <UserOutlined />),
-  getItem('用户管理', '/user-manage', <UserOutlined />, [
-    getItem('用户列表', '/user-manage/list', <UserOutlined />)
-  ]),
-  getItem('权限管理', '/right-manage', <AppstoreOutlined />, [
-    getItem('角色列表', '/right-manage/role/list', <UserOutlined />),
-    getItem('权限列表', '/right-manage/right/list', <UserOutlined />)
-  ])
-]
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[],
-  type?: 'group'
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type
-  } as MenuItem
-}
-
 export default function SideMenu() {
+  const [menu, setMenu] = useState<MenuItem[]>([])
   const navigate = useNavigate()
   const handeMenu: MenuProps['onClick'] = (e) => {
     navigate(e.key)
   }
+
+  useEffect(() => {
+    ;(async () => {
+      try {
+        const res = await axios.get('/api/rights?_embed=children')
+        const data = getList(res.data)
+        setMenu(data)
+      } catch (e) {
+        console.log(e)
+      }
+    })()
+  }, [])
 
   return (
     <Sider trigger={null} collapsible collapsed={false}>
@@ -52,7 +36,7 @@ export default function SideMenu() {
         defaultOpenKeys={['sub1']}
         mode="inline"
         theme="dark"
-        items={items}
+        items={menu}
       />
     </Sider>
   )
