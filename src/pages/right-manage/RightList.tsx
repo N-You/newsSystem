@@ -103,7 +103,11 @@ export default function RightList() {
   const deleteMethod = (item: resMenu) => {
     if (item.grade === 1) {
       setdataSource(dataSource.filter((data: any) => data.id !== item.id))
-      axios.delete(`/api/rights/${item.id}`)
+      try {
+        axios.delete(`/api/rights/${item.id}`)
+      } catch (e) {
+        console.log(e)
+      }
     } else {
       const list: resMenu[] = dataSource.filter(
         (data: any) => data.id === item.rightId
@@ -112,7 +116,11 @@ export default function RightList() {
         list[0].children &&
         list[0].children.filter((data: any) => data.id !== item.id)
       setdataSource([...dataSource])
-      axios.delete(`/api/children/${item.id}`)
+      try {
+        axios.delete(`/api/children/${item.id}`)
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 
@@ -120,13 +128,21 @@ export default function RightList() {
     item.pagepermisson = item.pagepermisson === 1 ? 0 : 1
     setdataSource([...dataSource])
     if (item.grade === 1) {
-      axios.patch(`/api/rights/${item.id}`, {
-        pagepermisson: item.pagepermisson
-      })
+      try {
+        axios.patch(`/api/rights/${item.id}`, {
+          pagepermisson: item.pagepermisson
+        })
+      } catch (e) {
+        console.log(e)
+      }
     } else {
-      axios.patch(`/api/children/${item.id}`, {
-        pagepermisson: item.pagepermisson
-      })
+      try {
+        axios.patch(`/api/children/${item.id}`, {
+          pagepermisson: item.pagepermisson
+        })
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
   return (

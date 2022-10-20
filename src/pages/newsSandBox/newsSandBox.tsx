@@ -2,11 +2,10 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import './newsSandBox.sass'
 
-import SideMenu from '@/commponents/layout/SideMenu/SideMenu'
-import TopHeader from '@/commponents/layout/TopHeader/TopHeader'
-
 import { Layout } from 'antd'
 import { Outlet } from 'react-router-dom'
+import SideMenu from '@/commponents/layout/SideMenu/SideMenu'
+import TopHeader from '@/commponents/layout/TopHeader/TopHeader'
 
 const { Content } = Layout
 

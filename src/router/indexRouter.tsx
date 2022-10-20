@@ -1,14 +1,14 @@
-import React from 'react'
-import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
+import Home from '@/pages/home/Home'
 import Login from '@/pages/Login/Login'
 import NewsSandBox from '@/pages/newsSandBox/newsSandBox'
-import Redirect from '@/commponents/Redirect'
-import NotFound from '@/pages/NotFound/NotFound'
-import RightList from '@/commponents/right-manage/RightList'
-import RoleList from '@/commponents/right-manage/RoleList'
-import UserList from '@/commponents/user-manage/UserList'
-import Home from '@/commponents/home/Home'
 import Nopermisson from '@/pages/newsSandBox/nopermisson'
+import NotFound from '@/pages/NotFound/NotFound'
+import RightList from '@/pages/right-manage/RightList'
+import RoleList from '@/pages/right-manage/RoleList'
+import UserList from '@/pages/user-manage/UserList'
+import Redirect from '@/plugins/Redirect'
+import React from 'react'
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 export default function IndexRouter() {
   return (
     <HashRouter>
