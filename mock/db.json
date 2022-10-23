@@ -10,7 +10,7 @@
       "roleId": 1
     },
     {
-      "username": "铁锤1",
+      "username": "铁锤",
       "password": "1234",
       "roleState": true,
       "default": false,
@@ -149,7 +149,8 @@
         "/publish-manage",
         "/publish-manage/unpublished",
         "/publish-manage/published",
-        "/publish-manage/sunset"
+        "/publish-manage/sunset",
+        "/home"
       ]
     },
     {

@@ -40,7 +40,12 @@ const iconList = {
 
 export function getList(menulist: resMenu[]) {
   const res: MenuItem[] = []
-  const data = menulist.filter((it: resMenu) => it.pagepermisson === 1)
+  const {
+    role: { rights }
+  } = JSON.parse(localStorage.getItem('token')!)
+  const data = menulist.filter(
+    (it: resMenu) => it.pagepermisson === 1 && rights.includes(it.key)
+  )
   data.forEach((items: resMenu) => {
     const { label, key } = items
     if (items.children && items.children?.length > 0) {

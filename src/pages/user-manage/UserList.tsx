@@ -23,17 +23,37 @@ export default function UserList() {
   const addForm = useRef<any>()
   const updateForm = useRef<any>()
 
+  const { roleId, region, username } = JSON.parse(
+    localStorage.getItem('token')!
+  )
+
   useEffect(() => {
+    const roleObj = {
+      '1': 'superadmin',
+      '2': 'admin',
+      '3': 'editor'
+    }
     ;(async () => {
       try {
         const res = await axios.get('/api/users?_expand=role')
         const list = res.data
-        setdataSource(list)
+        setdataSource(
+          roleObj[roleId as keyof typeof roleObj] === 'superadmin'
+            ? list
+            : [
+                ...list.filter((item: any) => item.username === username),
+                ...list.filter(
+                  (item: any) =>
+                    item.region === region &&
+                    roleObj[item.roleId as keyof typeof roleObj] === 'editor'
+                )
+              ]
+        )
       } catch (e) {
         console.log(e)
       }
     })()
-  }, [])
+  }, [roleId, region, username])
 
   useEffect(() => {
     ;(async () => {

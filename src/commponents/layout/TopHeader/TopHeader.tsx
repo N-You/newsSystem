@@ -1,34 +1,42 @@
 import React, { useState } from 'react'
-import { Avatar, Dropdown, Layout, Menu } from 'antd'
+import { Avatar, Dropdown, Layout, Menu, MenuProps } from 'antd'
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined
 } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
 
 const { Header } = Layout
 
 export default function TopHeader() {
   const [collapsed, setCollapsed] = useState(false)
+  const {
+    role: { roleName },
+    username
+  } = JSON.parse(localStorage.getItem('token')!)
+  const navigator = useNavigate()
 
   const changeCollapsed = () => {
     setCollapsed(!collapsed)
   }
 
+  const handleMenu: MenuProps['onClick'] = ({ key }) => {
+    if (key === '2') {
+      console.log(111)
+
+      localStorage.removeItem('token')
+      navigator('/login', { replace: true })
+    }
+  }
+
   const menu = (
     <Menu
+      onClick={handleMenu}
       items={[
         {
           key: '1',
-          label: (
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://www.antgroup.com"
-            >
-              超级管理员
-            </a>
-          )
+          label: roleName
         },
         {
           key: '2',
@@ -49,7 +57,9 @@ export default function TopHeader() {
         )}
 
         <div style={{ float: 'right' }}>
-          <span>欢迎回来</span>
+          <span>
+            欢迎<span style={{ color: 'red' }}>{username}</span>回来
+          </span>
           <Dropdown overlay={menu}>
             <Avatar size="large" icon={<UserOutlined />} />
           </Dropdown>

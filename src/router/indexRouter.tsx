@@ -14,7 +14,16 @@ export default function IndexRouter() {
     <HashRouter>
       <Routes>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/" element={<NewsSandBox />}>
+        <Route
+          path="/"
+          element={
+            localStorage.getItem('token') ? (
+              <NewsSandBox />
+            ) : (
+              <Redirect to="/login" />
+            )
+          }
+        >
           <Route index element={<Redirect to="home" />}></Route>
           <Route path="home" element={<Home />}></Route>
           <Route path="user-manage/list" element={<UserList />}></Route>
@@ -26,6 +35,7 @@ export default function IndexRouter() {
             <Route path="role/list" element={<RoleList />}></Route>
             <Route path="right/list" element={<RightList />}></Route>
           </Route>
+          <Route path="/news-manage" element={<Redirect to="add" />}></Route>
           <Route path="*" element={<Nopermisson />}></Route>
         </Route>
         <Route path="*" element={<NotFound />}></Route>
