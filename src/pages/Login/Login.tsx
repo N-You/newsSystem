@@ -4,8 +4,8 @@ import axios from 'axios'
 import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Particles from 'react-tsparticles'
-import type { Container, Engine } from 'tsparticles-engine'
 import { loadFull } from 'tsparticles'
+import type { Container, Engine } from 'tsparticles-engine'
 import './Login.sass'
 
 export default function Login() {
@@ -85,11 +85,6 @@ export default function Login() {
   } as any
 
   const particlesInit = useCallback(async (engine: Engine) => {
-    console.log(engine)
-
-    // you can initialize the tsParticles instance (engine) here, adding custom shapes or presets
-    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-    // starting from v2 you can add only the features you need reducing the bundle size
     await loadFull(engine)
   }, [])
 

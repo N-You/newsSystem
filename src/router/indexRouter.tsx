@@ -1,5 +1,8 @@
 import Home from '@/pages/home/Home'
 import Login from '@/pages/Login/Login'
+import NewsAdd from '@/pages/news-manage/NewsAdd'
+import NewsCategory from '@/pages/news-manage/NewsCategory'
+import NewsDraft from '@/pages/news-manage/NewsDraft'
 import NewsSandBox from '@/pages/newsSandBox/newsSandBox'
 import Nopermisson from '@/pages/newsSandBox/nopermisson'
 import NotFound from '@/pages/NotFound/NotFound'
@@ -35,7 +38,12 @@ export default function IndexRouter() {
             <Route path="role/list" element={<RoleList />}></Route>
             <Route path="right/list" element={<RightList />}></Route>
           </Route>
-          <Route path="/news-manage" element={<Redirect to="add" />}></Route>
+          <Route path="news-manage">
+            <Route index element={<Redirect to="add" />}></Route>
+            <Route path="add" element={<NewsAdd />}></Route>
+            <Route path="draft" element={<NewsCategory />}></Route>
+            <Route path="category" element={<NewsDraft />}></Route>
+          </Route>
           <Route path="*" element={<Nopermisson />}></Route>
         </Route>
         <Route path="*" element={<NotFound />}></Route>
